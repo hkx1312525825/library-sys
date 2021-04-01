@@ -1,0 +1,109 @@
+//宽高设置
+@app-min-width: 1366px;
+@content-width: 1200px;
+@page-min-height: 500px;
+//颜色设置
+@base-bg-color: #03a9f4;
+@active-color: #03a9f4;
+@white-bg-color: #ffffff;
+@title-color: #222;
+@content-color: #333;
+@gray-color: #999;
+@base-color: #03a9f4;
+@base-color-opacity-1: rgba(0, 123, 255, 0.1);
+@base-color-opacity-2: rgba(0, 123, 255, 0.2);
+@base-color-opacity-5: rgba(0, 123, 255, 0.5);
+@lable-color: #333333;
+@text-color: #5a5a5a;
+//字体规范
+@font-family: "微软雅黑";
+@max-font-size: 32px;
+@min-font-size: 12px;
+@base-font-size: 14px;
+@h7-font-size: @min-font-size;
+@h6-font-size: @base-font-size;
+@h5-font-size: 16px;
+@h4-font-size: 18px;
+@h3-font-size: 20px;
+@h2-font-size: 24px;
+@h1-font-size: @max-font-size;
+
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.ellipsismore {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.arrow-right {
+  font-size: 0;
+  line-height: 0;
+  border-width: 6px;
+  height: 8px;
+  border-color: @active-color;
+  border-right-width: 0;
+  border-style: dashed;
+  border-left-style: solid;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  margin-left: 6px;
+}
+.flex {
+  display: flex;
+  align-items: center;
+}
+.bg {
+  background-repeat: no-repeat;
+  background-position: center 0;
+  background-size: cover;
+}
+.flex-x-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.flex-align-center {
+  align-items: center;
+}
+.flex-align-start {
+  align-items: flex-start;
+}
+.flex-y {
+  .flex;
+  flex-direction: column;
+}
+.flex-x-bt {
+  .flex;
+  justify-content: space-between;
+}
+.flex-y-bt {
+  .flex-y;
+  justify-content: space-between;
+}
+.flex-y-center {
+  .flex-y;
+  .flex-align-center;
+  justify-content: center;
+}
+.background {
+  background-size: cover !important;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.hvr-grow-shadow:hover,
+.hvr-grow-shadow:focus,
+.hvr-grow-shadow:active {
+  transform: scale(1.1);
+}

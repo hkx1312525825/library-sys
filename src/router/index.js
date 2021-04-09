@@ -9,7 +9,22 @@ const routes = [
   {
     path: '/',
     name: 'Index',
-    component: Index
+    component: Index,
+    redirect: 'Login',
+    children: [
+      {
+        path: '/login',
+        name: 'Login',
+        component: () =>
+          import(/* webpackChunkName: "about" */ '../views/Login/Login.vue')
+      },
+      {
+        path: '/register',
+        name: 'Register',
+        component: () =>
+          import(/* webpackChunkName: "about" */ '../views/Login/Register.vue')
+      }
+    ]
   },
   {
     path: '/manager/index',

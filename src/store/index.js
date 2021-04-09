@@ -5,11 +5,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    authorization: ''
+    token: ''
   },
   mutations: {
-    setauthorization: (state, data) => {
-      state.authorization = data
+    setToken: (state, data) => {
+      state.token = data
     }
   },
   actions: {

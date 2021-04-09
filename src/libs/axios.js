@@ -2,7 +2,7 @@ import { Spin, Message } from 'view-design'
 import axios from 'axios'
 import { baseURL } from '@/config'
 import store from '@/store'
-import router from '@/router'
+// import router from '@/router'
 
 // timeout、loading、hideError
 class HttpRequest {
@@ -20,8 +20,9 @@ class HttpRequest {
         'X-Requested-With': XMLHttpRequest
       }
     }
-    if (store.state.authorization) {
-      config.headers.token = store.state.authorization
+    console.log(store.state.token)
+    if (store.state.token) {
+      config.headers.Authorization = store.state.token
     }
     return Object.assign(config, options)
   }
@@ -68,43 +69,42 @@ class HttpRequest {
       ({ data, status, headers }) => {
         this.destroy(url)
         // 请求成功处理（包括后台异常）
-        if (status === 200 && data.success && data.data !== undefined) {
-          if (url === '/login') {
-            data.data.authorization =
-              headers.authorization || headers.Authorization
+        if (status === 200 || status === 201) {
+          if (url === 'users?action=login' || url === 'managers?action=login') {
+            return data
           }
-          return data.data
         } else {
-          return Promise.reject(data.message || '数据异常，请联系管理员')
+          return Promise.reject(data.detail || '数据异常，请联系管理员')
         }
       },
       error => {
         this.destroy(url)
-        if (this.responseStatus === 401) return
+        // if (this.responseStatus === 401) return
         // 请求出错处理
-        let message = error.message
-        if (error.response) {
-          if (error.response.status === 401) {
-            // 退出登录
-            if (url !== '/login' && url !== '/current-user') {
-              store.commit('setCurrentUser', null)
-              store.commit('setAuthorization', '')
-              this.responseStatus = 401
-              this.cancelToken.forEach(item => item.cancel())
-              setTimeout(() => {
-                router.replace({
-                  name: 'Login'
-                })
-                this.responseStatus = ''
-              }, 200)
-            }
-          }
-          message = error.response.data ? error.response.data.message : message
+        let message = error.response.data.detail
+        if (error.status !== 200 || error.status !== 201) {
+          // if (error.response.status === 401) {
+          //   // 退出登录
+          //   if (url !== '/login' && url !== '/current-user') {
+          //     store.commit('setCurrentUser', null)
+          //     store.commit('setAuthorization', '')
+          //     this.responseStatus = 401
+          //     this.cancelToken.forEach(item => item.cancel())
+          //     setTimeout(() => {
+          //       router.replace({
+          //         name: 'Login'
+          //       })
+          //       this.responseStatus = ''
+          //     }, 200)
+          //   }
+          // }
+          message = error.response.data.detail
         } else {
           message = message || '请求超时，请检查网络连接'
         }
         message = message || '数据异常，请联系管理员'
-        message = message === 'Bad credentials' ? '用户名或密码错误' : message
+        console.log(message)
+        // message = message === 'Bad credentials' ? '用户名或密码错误' : message
         hideError || Message.error(message)
         return Promise.reject(message)
       }

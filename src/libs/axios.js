@@ -70,9 +70,9 @@ class HttpRequest {
         this.destroy(url)
         // 请求成功处理（包括后台异常）
         if (status === 200 || status === 201) {
-          if (url === 'users?action=login' || url === 'managers?action=login') {
-            return data
-          }
+          // if (url === 'users?action=login' || url === 'managers?action=login') {
+          return data
+          // }
         } else {
           return Promise.reject(data.detail || '数据异常，请联系管理员')
         }

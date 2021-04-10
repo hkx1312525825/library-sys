@@ -29,7 +29,31 @@ const routes = [
   {
     path: '/manager/index',
     name: 'ManagerIndex',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Manager/Index')
+    meta: { requiresAuth: true },
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/Manager/Index'),
+    redirect: 'Book',
+    children: [
+      {
+        path: '/Book',
+        name: 'Book',
+        component: () =>
+          import(
+            /* webpackChunkName: "about" */ '../views/Manager/Book/Index.vue'
+          ),
+        children: [
+          {
+            path: '/BookManage',
+            name: 'BookManage',
+            // redirect: 'BookManage',
+            component: () =>
+              import(
+                /* webpackChunkName: "about" */ '../views/Manager/Book/BookManage.vue'
+              )
+          }
+        ]
+      }
+    ]
   }
 ]
 
@@ -41,9 +65,11 @@ router.beforeEach((to, from, next) => {
   // to.meta.auth 表示需要做登录健全
   // 不需要的 可以直接next
   if (to.meta.requiresAuth) {
+    // debugger
+    console.log(store.state.token)
     // store.state.token 表示已经登录 可以直接next
     // 没有登录 跳转到/login 并携带参数redirect 方便登录后直接跳转到to.path
-    if (store.state.authorization) {
+    if (store.state.token) {
       next()
     } else {
       next({

@@ -50,7 +50,9 @@
             </FormItem>
             <FormItem class="register-unremember" :label-width="0">
               <!-- <div class="unremember">忘记密码</div> -->
-              <div class="register" @click="$router.push({name: 'Register'})">注册</div>
+              <div class="register" @click="$router.push({ name: 'Register' })">
+                注册
+              </div>
             </FormItem>
           </Form>
           <Form
@@ -134,6 +136,7 @@ export default {
               method: 'post'
             })
             .then(res => {
+              debugger
               this.$store.commit('setToken', res.token)
             })
         } else {
@@ -152,6 +155,7 @@ export default {
             })
             .then(res => {
               this.$store.commit('setToken', res.token)
+              this.$store.commit('setManager', res.user)
               this.$router.push({ name: 'ManagerIndex' })
             })
         } else {
@@ -163,7 +167,7 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .login-content {
   min-height: 500px;
   .flex-x-center;
@@ -213,6 +217,9 @@ export default {
     border-bottom: 5px solid @active-color;
     font-weight: 600;
     transition: all 0.2s;
+  }
+  .ivu-input {
+    height: 50px;
   }
 }
 </style>

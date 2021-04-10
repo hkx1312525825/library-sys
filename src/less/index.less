@@ -1,7 +1,6 @@
 html,
 body {
   font-family: PingFangSC-Medium, PingFang SC;
-  // overflow: hidden;
   margin: 0;
 }
 a {
@@ -10,14 +9,15 @@ a {
 ul li {
   list-style-type: none;
 }
-// .ivu-layout-header {
-//   background: rgba(255, 255, 255, 1);
-//   height: unset;
-//   line-height: unset;
-//   padding: unset;
+
+// .ivu-input {
+//   height: 50px;
 // }
-.ivu-input {
-  height: 50px;
+// .ivu-form-item {
+//   text-align: center;
+// }
+.ivu-menu-primary {
+  background: @base-bg-color;
 }
 .ivu-input-prefix {
   .flex-x-center;
@@ -25,7 +25,9 @@ ul li {
 .ivu-input-suffix {
   .flex-x-center;
 }
-
+.ivu-layout {
+  height: 100%;
+}
 .unique {
   .ivu-input-suffix {
     display: block;

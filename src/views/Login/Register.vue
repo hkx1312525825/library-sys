@@ -14,7 +14,12 @@
         ></Input>
       </FormItem>
       <FormItem label="密码" prop="password">
-        <Input v-model="registerForm.password" placeholder="请输入密码"></Input>
+        <Input
+          v-model="registerForm.password"
+          :password="true"
+          type="password"
+          placeholder="请输入密码"
+        ></Input>
       </FormItem>
       <FormItem label="姓名" prop="name">
         <Input v-model="registerForm.name" placeholder="请输入姓名"></Input>
@@ -44,7 +49,7 @@
         <Button @click="registerSubmit('registerForm')" type="primary"
           >注册</Button
         >
-        <Button @click="$router.push({name: 'Login'})" type="default"
+        <Button @click="$router.push({ name: 'Login' })" type="default"
           >返回</Button
         >
       </FormItem>
@@ -140,7 +145,7 @@ export default {
               this.RegisterShow = false
               this.img = []
               this.$refs.registerForm.resetFields()
-              this.$router.push({ name: 'Login' })
+              this.$router.replace({ name: 'Login' })
             })
             .catch(err => {
               console.log(err)
@@ -157,7 +162,7 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .register-content {
   .flex-x-center;
   .register-form {
@@ -171,6 +176,9 @@ export default {
     .ivu-btn {
       margin-left: 35px;
     }
+  }
+  .ivu-input {
+    height: 50px;
   }
 }
 </style>

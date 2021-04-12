@@ -69,7 +69,7 @@ class HttpRequest {
       ({ data, status, headers }) => {
         this.destroy(url)
         // 请求成功处理（包括后台异常）
-        if (status === 200 || status === 201) {
+        if (status === 200 || status === 201 || status === 204) {
           // if (url === 'users?action=login' || url === 'managers?action=login') {
           return data
           // }

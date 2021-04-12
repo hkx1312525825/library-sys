@@ -9,24 +9,34 @@
       :style="{ padding: '24px', minHeight: '280px', background: '#fff' }"
     >
       <div class="search">
-        <Form :model="bookInfo" label-position="right" :label-width="100">
+        <Form
+          ref="bookForm"
+          :model="bookInfo"
+          label-position="right"
+          :label-width="100"
+        >
           <Row>
             <Col span="6"
-              ><FormItem label="书籍名称">
+              ><FormItem label="书籍名称" prop="name">
                 <Input
                   v-model="bookInfo.name"
                   placeholder="请输入书籍名称"
                 ></Input> </FormItem
             ></Col>
             <Col span="6"
-              ><FormItem label="书籍类型">
-                <Input
-                  v-model="bookInfo.tag"
-                  placeholder="请输入书籍名称"
-                ></Input> </FormItem
-            ></Col>
+              ><FormItem label="书籍类型" prop="tag">
+                <Select v-model="bookInfo.tag">
+                  <Option
+                    v-for="item in tagData"
+                    :value="item.name"
+                    :key="item.name"
+                    >{{ item.name }}</Option
+                  >
+                </Select>
+              </FormItem></Col
+            >
             <Col span="6"
-              ><FormItem label="作者名称">
+              ><FormItem label="作者名称" prop="author">
                 <Input
                   v-model="bookInfo.author"
                   placeholder="请输入作者名称"
@@ -34,21 +44,103 @@
             ></Col>
             <Col span="6"
               ><FormItem>
-                  <Button style="margin-right: 25px" type="primary">查询</Button>
-                  <Button type="normal">重置</Button>
-                </FormItem
-            ></Col>
+                <Button
+                  style="margin-right: 25px"
+                  @click="searchBook(1)"
+                  type="primary"
+                  >查询</Button
+                >
+                <Button @click="resetData">重置</Button>
+              </FormItem></Col
+            >
+            <Col span="24"
+              ><FormItem>
+                <Button type="primary" @click="bookAddShow = true">新增</Button>
+              </FormItem></Col
+            >
           </Row>
         </Form>
       </div>
       <div class="table">
-        <Table stripe :columns="columns1" :border="true" :data="bookData"></Table>
+        <Table
+          stripe
+          :columns="columns1"
+          :border="true"
+          :data="bookData"
+        ></Table>
       </div>
+      <div style="margin-top: 10px"><Page @on-change="pageChange" :total="total" /></div>
     </Content>
+    <Modal v-model="bookAddShow" :loading="loading" @on-ok="submitBook" @on-cancel="cancelBook" fullscreen title="新增书籍">
+      <Form
+        ref="addBookForm"
+        :model="bookForm"
+        :rules="ruleValidate"
+        :label-width="100"
+      >
+        <FormItem label="书籍名称" prop="name">
+          <Input
+            v-model="bookForm.name"
+            style="width: 300px"
+            placeholder="请输入书籍名称"
+          ></Input>
+        </FormItem>
+        <FormItem label="作者" prop="author">
+          <Input
+            v-model="bookForm.author"
+            style="width: 300px"
+            placeholder="请输入作者名称"
+          ></Input>
+        </FormItem>
+        <FormItem label="简介">
+          <!-- <Input v-model="bookForm.introduction" placeholder="请输入书籍名称"></Input> -->
+          <Editor content='' @getContent="getContent"></Editor>
+        </FormItem>
+        <FormItem label="标签">
+          <!-- <Input v-model="bookForm.tags" placeholder="请输入书籍名称"></Input> -->
+          <Select
+            style="width: 200px;"
+            :multiple="true"
+            placement="bottom"
+            v-model="bookForm.tags"
+          >
+            <Option v-for="item in tagData" :value="item.id" :key="item.name">{{
+              item.name
+            }}</Option>
+          </Select>
+        </FormItem>
+        <FormItem label="书籍数量" prop="num">
+          <Input
+            type="number"
+            style="width: 120px"
+            v-model="bookForm.num"
+            placeholder="请输入书籍数量"
+          ></Input>
+        </FormItem>
+        <FormItem label="推荐值" prop="value">
+          <Input
+            type="number"
+            style="width: 120px"
+            v-model="bookForm.value"
+            placeholder="请输入推荐值"
+          ></Input>
+        </FormItem>
+        <FormItem label="图片">
+          <Upload
+            :length.sync="img.length"
+            :files.sync="img"
+            :max="1"
+            @getFile="getUploadFile($event)"
+          ></Upload>
+        </FormItem>
+      </Form>
+    </Modal>
   </div>
 </template>
 
 <script>
+import Editor from '@/components/Editor.vue'
+import Upload from '@/components/Upload.vue'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -59,7 +151,13 @@ import {
   Row,
   Col,
   Input,
-  Button
+  Button,
+  Tag,
+  Select,
+  Option,
+  Modal,
+  Message,
+  Page
 } from 'view-design'
 import axios from '@/libs/axios'
 export default {
@@ -73,7 +171,13 @@ export default {
     Row,
     Col,
     Input,
-    Button
+    Button,
+    Select,
+    Option,
+    Modal,
+    Editor,
+    Upload,
+    Page
   },
   name: '',
   data () {
@@ -83,12 +187,26 @@ export default {
         tag: '',
         author: ''
       },
+      total: 0,
+      bookAddShow: false,
       bookData: [],
+      tagData: [],
+      img: [],
+      bookForm: {
+        name: '',
+        author: '',
+        num: 0,
+        introduction: '',
+        value: '',
+        img: '',
+        tags: []
+      },
+      loading: true,
       columns1: [
         {
           title: '#',
           type: 'index',
-          width: '30'
+          width: '80'
         },
         {
           title: '书籍名称',
@@ -96,86 +214,197 @@ export default {
         },
         {
           title: '书籍图片',
-          key: 'img'
+          key: 'img',
+          width: '100',
+          render: (h, params, column) => {
+            if (params.row.img) {
+              return (
+                <div>
+                  <img style="height: 35px" src={params.row.img.url}></img>
+                </div>
+              )
+            }
+          }
         },
         {
           title: '作者',
+          width: '150',
           key: 'author'
         },
         {
-          title: '简介',
-          key: 'introduction',
-          tooltip: true
-        },
-        {
           title: '评分',
+          width: '100',
           key: 'score'
         },
         {
           title: '推荐值',
+          width: '100',
           key: 'value'
+        },
+        {
+          title: '数量',
+          key: 'num',
+          width: '100'
         },
         {
           title: '标签',
           key: 'tags',
-          tooltip: true
+          tooltip: true,
+          render: (h, params, column) => {
+            if (params.row.tags.length !== 0) {
+              return (
+                <div>
+                  {params.row.tags.map(item => {
+                    return <Tag color="default">{item.name}</Tag>
+                  })}
+                </div>
+              )
+            } else {
+              return <span>暂无标签</span>
+            }
+          }
         },
         {
           title: '操作',
           // tooltip: true,
           render: (h, params) => {
-            // return (
-            //   <div>
-            //     <Button type="primary" size="small" vOn:click={this.showEdit}>编辑</Button>
-            //   </div>
-            // )
-            return h('div', [
-              h('Button', {
-                props: {
-                  type: 'primary',
-                  size: 'small'
-                },
-                style: {
-                  marinRight: '10px'
-                },
-                on: {
-                  click: () => {
-                    this.showEdit(params.row)
-                  }
-                }
-              }, '编辑'),
-              h('Button', {
-                props: {
-                  type: 'error',
-                  size: 'small'
-                },
-                on: {
-                  click: () => {
-                    this.delete(params.row)
-                  }
-                }
-              }, '删除')
-            ])
+            const style = {
+              marginRight: '10px'
+            }
+            return (
+              <div>
+                <Button
+                  type="primary"
+                  style={style}
+                  size="small"
+                  onClick={() => this.showEdit(params.row)}
+                >
+                  编辑
+                </Button>
+                <Button
+                  type="error"
+                  size="small"
+                  onClick={() => this.delete(params.row)}
+                >
+                  删除
+                </Button>
+              </div>
+            )
           }
         }
-      ]
+      ],
+      ruleValidate: {
+        name: [
+          { required: true, message: '请输入书籍名称', trigger: 'blur' }
+        ],
+        author: [
+          { required: true, message: '请输入作者名称', trigger: 'blur' }
+        ],
+        num: [
+          { required: true, message: '请输入书籍数量', trigger: 'blur' }
+        ],
+        value: [
+          { required: true, message: '请输入书籍推荐值', trigger: 'blur' }
+        ]
+      }
     }
   },
   methods: {
     showEdit (params) {
-      console.log(params)
+      this.$router.push({ name: 'BookEdit', params: { id: params.id } })
     },
     delete (params) {
-      console.log(params)
+      axios.request({ url: `books/${params.id}`, method: 'DELETE' }).then(res => {
+        console.log(res)
+        Message.success('删除书籍成功')
+        this.searchBook()
+      })
+    },
+    searchBook (page = 1) {
+      axios
+        .request({
+          url: `books?page=${page}&name=${this.bookInfo.name}&author=${this.bookInfo.author}&tag=${this.bookInfo.tag}`
+        })
+        .then(res => {
+          this.bookData = res.results
+          this.total = res.count
+        })
+    },
+    pageChange (page) {
+      this.searchBook(page)
+    },
+    getContent (content) {
+      this.bookForm.introduction = content
+    },
+    getUploadFile (e) {
+      if (e.length > 0) {
+        this.img = e.map(item => {
+          // console.log(item)
+          if (item.response) {
+            return item.response
+          } else {
+            return item
+          }
+        })
+        console.log(this.img)
+      } else {
+        this.img = []
+      }
+    },
+    submitBook () {
+      if (this.img.length > 0) {
+        this.bookForm.img = this.img[0].id
+      }
+      const data = {
+        name: this.bookForm.name,
+        author: this.bookForm.author,
+        introduction: this.bookForm.introduction,
+        value: this.bookForm.value,
+        num: this.bookForm.num,
+        img: this.bookForm.img,
+        tags: []
+      }
+      this.bookForm.tags.forEach((item, index) => {
+        data.tags[index] = { tag: item }
+      })
+      this.$refs.addBookForm.validate((valid) => {
+        if (valid) {
+          axios.request({ url: 'createBooks', data: data, method: 'POST' }).then(res => {
+            Message.success('添加书籍成功')
+            this.bookAddShow = false
+            this.searchBook()
+          }).catch(err => {
+            Message.error('添加书籍失败')
+            console.log(err)
+            this.bookAddShow = false
+            this.searchBook()
+          })
+        } else {
+          this.loading = false
+          this.$nextTick(() => {
+            this.loading = true
+          })
+        }
+      })
+    },
+    cancelBook () {
+      this.$refs.addBookForm.resetFields()
+      this.bookAddShow = false
+    },
+    resetData () {
+      this.$refs.bookForm.resetFields()
     }
   },
   created () {
-    axios.request({ url: 'books' }).then(res => {
-      this.bookData = res
+    this.searchBook()
+    axios.request({ url: 'tags' }).then(res => {
+      const data = res
+      // console.log(data)
+      this.tagData = data.results
+      console.log(this.tagData)
     })
   }
 }
 </script>
 
-<style lang="less" scoped>
-</style>
+<style lang="less" scoped></style>

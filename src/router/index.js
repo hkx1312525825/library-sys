@@ -50,6 +50,15 @@ const routes = [
               import(
                 /* webpackChunkName: "about" */ '../views/Manager/Book/BookManage.vue'
               )
+          },
+          {
+            path: '/BookEdit',
+            name: 'BookEdit',
+            // redirect: 'BookManage',
+            component: () =>
+              import(
+                /* webpackChunkName: "about" */ '../views/Manager/Book/BookEdit.vue'
+              )
           }
         ]
       }

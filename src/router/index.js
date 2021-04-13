@@ -100,6 +100,26 @@ const routes = [
               )
           }
         ]
+      },
+      {
+        path: '/manager/Index/User',
+        name: 'User',
+        redirect: 'UserManage',
+        component: () =>
+          import(
+            /* webpackChunkName: "about" */ '../views/Manager/User/Index.vue'
+          ),
+        children: [
+          {
+            path: '/manager/Index/UserManage',
+            name: 'UserManage',
+            // redirect: 'BookManage',
+            component: () =>
+              import(
+                /* webpackChunkName: "about" */ '../views/Manager/User/UserManage.vue'
+              )
+          }
+        ]
       }
     ]
   }

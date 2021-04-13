@@ -206,14 +206,17 @@ export default {
         {
           title: '#',
           type: 'index',
+          align: 'center',
           width: '80'
         },
         {
           title: '书籍名称',
+          align: 'center',
           key: 'name'
         },
         {
           title: '书籍图片',
+          align: 'center',
           key: 'img',
           width: '100',
           render: (h, params, column) => {
@@ -228,26 +231,31 @@ export default {
         },
         {
           title: '作者',
+          align: 'center',
           width: '150',
           key: 'author'
         },
         {
           title: '评分',
+          align: 'center',
           width: '100',
           key: 'score'
         },
         {
           title: '推荐值',
+          align: 'center',
           width: '100',
           key: 'value'
         },
         {
           title: '数量',
+          align: 'center',
           key: 'num',
           width: '100'
         },
         {
           title: '标签',
+          align: 'center',
           key: 'tags',
           tooltip: true,
           render: (h, params, column) => {
@@ -267,6 +275,7 @@ export default {
         {
           title: '操作',
           // tooltip: true,
+          align: 'center',
           render: (h, params) => {
             const style = {
               marginRight: '10px'

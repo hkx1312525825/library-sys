@@ -106,22 +106,27 @@ export default {
         {
           title: '#',
           type: 'index',
+          align: 'center',
           width: '80'
         },
         {
           title: '管理员姓名',
+          align: 'center',
           key: 'name'
         },
         {
           title: '联系电话',
+          align: 'center',
           key: 'phone'
         },
         {
           title: '账号',
+          align: 'center',
           key: 'username'
         },
         {
           title: '密码',
+          align: 'center',
           key: 'password',
           render: (h, params) => {
             return (
@@ -131,6 +136,7 @@ export default {
         },
         {
           title: '权限',
+          align: 'center',
           key: 'is_super',
           render: (h, params) => {
             if (params.row.is_super) {
@@ -147,6 +153,7 @@ export default {
         {
           title: '操作',
           // tooltip: true,
+          align: 'center',
           render: (h, params) => {
             const style = {
               marginRight: '10px'
@@ -179,7 +186,7 @@ export default {
   },
   methods: {
     searchManager (page = 1) {
-      axios.request({ url: 'managers', params: this.managerInfo }).then(res => {
+      axios.request({ url: `managers?page=${page}`, params: this.managerInfo }).then(res => {
         this.managerData = res.results
         this.total = res.count
       })

@@ -2,8 +2,8 @@
   <div class="book-manage">
     <Layout>
       <Sider hide-trigger :style="{ background: '#fff' }">
-        <Menu active-name="ManagerManage" theme="light" width="auto">
-          <MenuItem name="ManagerManage" to="ManagerManage"><Icon type="md-grid" />用户信息管理</MenuItem>
+        <Menu active-name="UserManage" theme="light" width="auto">
+          <MenuItem name="UserManage" to="UserManage"><Icon type="md-grid" />用户信息管理</MenuItem>
           <!-- <MenuItem name="CoursolManage" to="CoursolManage"><Icon type="md-grid" />首页轮播图管理</MenuItem> -->
         </Menu>
       </Sider>

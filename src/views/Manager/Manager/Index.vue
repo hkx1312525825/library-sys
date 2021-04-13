@@ -2,10 +2,9 @@
   <div class="book-manage">
     <Layout>
       <Sider hide-trigger :style="{ background: '#fff' }">
-        <Menu active-name="1" theme="light" width="auto">
-          <MenuItem name="1" to="BookManage"><Icon type="md-grid" />书籍管理</MenuItem>
-          <MenuItem name="2" to="reanage"><Icon type="md-grid" />预定管理</MenuItem>
-          <MenuItem name="3" to="BookManage"><Icon type="md-grid" />标签管理</MenuItem>
+        <Menu active-name="ManagerManage" theme="light" width="auto">
+          <MenuItem name="ManagerManage" to="ManagerManage"><Icon type="md-grid" />管理员管理</MenuItem>
+          <MenuItem name="CoursolManage" to="CoursolManage"><Icon type="md-grid" />首页轮播图管理</MenuItem>
         </Menu>
       </Sider>
       <Layout :style="{ padding: '0 24px 24px' }">
@@ -33,12 +32,15 @@ export default {
   },
   name: '',
   data () {
-    return {}
+    return {
+
+    }
   }
+
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .book-manage {
   height: 100%;
 }

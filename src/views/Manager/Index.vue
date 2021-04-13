@@ -6,7 +6,7 @@
           <img src="../../assets/匠-书房.svg" alt="" />
         </div>
         <div class="header-menu">
-          <Menu mode="horizontal" theme="primary" active-name="Book">
+          <!-- <Menu mode="horizontal" theme="primary" active-name="Book">
             <MenuItem name="Book" to="Book" :replace="true">
               <Icon type="ios-navigate"></Icon>
               书籍管理
@@ -19,7 +19,12 @@
               <Icon type="ios-analytics"></Icon>
               管理员管理
             </MenuItem>
-          </Menu>
+          </Menu> -->
+          <div class="header-menu-content">
+            <div><router-link to="Book"><Icon type="md-book" />书籍管理</router-link></div>
+            <div><router-link to="User"><Icon type="ios-contacts-outline" />用户管理</router-link></div>
+            <div><router-link to="Manager"><Icon type="ios-hammer-outline" />管理员管理</router-link></div>
+          </div>
           <div class="manager-info">
             <div class="manager-name">{{ user.name }}</div>
             <div class="manager-logout" @click="logout">退出</div>
@@ -34,14 +39,12 @@
 </template>
 
 <script>
-import { Header, Layout, Menu, MenuItem, Icon } from 'view-design'
+import { Header, Layout, Icon } from 'view-design'
 import axios from '@/libs/axios'
 export default {
   components: {
     Header,
     Layout,
-    Menu,
-    MenuItem,
     Icon
   },
   name: 'ManagerIndex',
@@ -59,9 +62,8 @@ export default {
   },
   computed: {},
   created () {
-    // debugger
     axios.request({ url: 'currentUser' }).then(res => {
-      console.log(res)
+      this.$store.commit('setManager', res)
       this.user = res
     })
   }
@@ -97,6 +99,14 @@ export default {
 }
 .header-menu {
   .flex;
+  .header-menu-content {
+    .flex;
+    color: #fff;
+    margin-right: 100px;
+    > div {
+      margin-left: 60px;
+    }
+  }
   .manager-info {
     .flex;
     margin-left: 15px;

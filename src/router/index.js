@@ -27,23 +27,24 @@ const routes = [
     ]
   },
   {
-    path: '/manager/index',
+    path: '/manager/Index',
     name: 'ManagerIndex',
     meta: { requiresAuth: true },
     component: () =>
       import(/* webpackChunkName: "about" */ '../views/Manager/Index'),
-    redirect: 'Book',
+    redirect: '/manager/Index/Book',
     children: [
       {
-        path: '/Book',
+        path: '/manager/Index/Book',
         name: 'Book',
+        redirect: 'BookManage',
         component: () =>
           import(
             /* webpackChunkName: "about" */ '../views/Manager/Book/Index.vue'
           ),
         children: [
           {
-            path: '/BookManage',
+            path: '/manager/Index/BookManage',
             name: 'BookManage',
             // redirect: 'BookManage',
             component: () =>
@@ -52,12 +53,50 @@ const routes = [
               )
           },
           {
-            path: '/BookEdit',
+            path: '/manager/Index/BookEdit',
             name: 'BookEdit',
             // redirect: 'BookManage',
             component: () =>
               import(
                 /* webpackChunkName: "about" */ '../views/Manager/Book/BookEdit.vue'
+              )
+          }
+        ]
+      },
+      {
+        path: '/manager/Index/Manager',
+        name: 'Manager',
+        redirect: 'ManagerManage',
+        component: () =>
+          import(
+            /* webpackChunkName: "about" */ '../views/Manager/Manager/Index.vue'
+          ),
+        children: [
+          {
+            path: '/manager/Index/ManagerManage',
+            name: 'ManagerManage',
+            // redirect: 'BookManage',
+            component: () =>
+              import(
+                /* webpackChunkName: "about" */ '../views/Manager/Manager/ManagerManage.vue'
+              )
+          },
+          {
+            path: '/manager/Index/ManagerAdd',
+            name: 'ManagerAdd',
+            // redirect: 'BookManage',
+            component: () =>
+              import(
+                /* webpackChunkName: "about" */ '../views/Manager/Manager/ManagerAdd.vue'
+              )
+          },
+          {
+            path: '/manager/Index/ManagerEdit',
+            name: 'ManagerEdit',
+            // redirect: 'BookManage',
+            component: () =>
+              import(
+                /* webpackChunkName: "about" */ '../views/Manager/Manager/ManagerEdit.vue'
               )
           }
         ]

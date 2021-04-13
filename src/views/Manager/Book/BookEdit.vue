@@ -192,7 +192,7 @@ export default {
         if (valid) {
           axios.request({ url: 'bookEdit', data: data, method: 'PUT' }).then(res => {
             Message.success('修改书籍信息成功')
-            this.$router.push('BookManage')
+            this.$router.replace('BookManage')
           }).catch(err => {
             Message.error('修改书籍信息失败')
             console.log(err)

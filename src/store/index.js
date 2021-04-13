@@ -6,14 +6,14 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     token: localStorage.token || '',
-    currentManager: localStorage.currentManager || {}
+    currentManager: {}
   },
   mutations: {
     setToken: (state, data) => {
       localStorage.token = state.token = data
     },
     setManager: (state, data) => {
-      localStorage.currentManager = state.currentManager = data
+      state.currentManager = data
     }
   },
   actions: {

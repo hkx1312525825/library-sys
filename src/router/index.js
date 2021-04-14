@@ -58,6 +58,14 @@ const routes = [
               import(
                 /* webpackChunkName: "about" */ '../views/Manager/Book/BookEdit.vue'
               )
+          },
+          {
+            path: '/manager/Index/TagManage',
+            name: 'TagManage',
+            component: () =>
+              import(
+                /* webpackChunkName: "about" */ '../views/Manager/Book/TagManage.vue'
+              )
           }
         ]
       },

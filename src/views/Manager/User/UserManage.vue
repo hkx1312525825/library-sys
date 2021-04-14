@@ -2,8 +2,8 @@
   <div class="manager-page">
     <Breadcrumb :style="{ margin: '24px 0' }">
       <!-- <BreadcrumbItem>Home</BreadcrumbItem> -->
-      <BreadcrumbItem>管理员管理</BreadcrumbItem>
-      <BreadcrumbItem>管理员管理</BreadcrumbItem>
+      <BreadcrumbItem>用户管理</BreadcrumbItem>
+      <BreadcrumbItem>用户信息管理</BreadcrumbItem>
     </Breadcrumb>
     <Content
       :style="{ padding: '24px', minHeight: '280px', background: '#fff' }"
@@ -51,7 +51,7 @@
             >
             <Col span="24"
               ><FormItem>
-                <Button type="primary" @click="$router.push({name: 'ManagerAdd'})">新增</Button>
+                <Button type="primary" @click="$router.push({name: 'UserAdd'})">新增</Button>
               </FormItem></Col
             >
           </Row>
@@ -141,7 +141,8 @@ export default {
           key: 'forbidden',
           align: 'center',
           render: (h, params) => {
-            if (params.row.is_super) {
+            // debugger
+            if (params.row.forbidden) {
               return (
                 <Tag color="error">已禁用</Tag>
               )
@@ -297,7 +298,7 @@ export default {
       })
     },
     showEdit (params) {
-      this.$router.push({ name: 'ManagerEdit', params: { manager: params } })
+      this.$router.push({ name: 'UserEdit', params: { user: params } })
     }
   },
   created () {

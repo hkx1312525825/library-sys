@@ -46,7 +46,6 @@ const routes = [
           {
             path: '/manager/Index/BookManage',
             name: 'BookManage',
-            // redirect: 'BookManage',
             component: () =>
               import(
                 /* webpackChunkName: "about" */ '../views/Manager/Book/BookManage.vue'
@@ -55,7 +54,6 @@ const routes = [
           {
             path: '/manager/Index/BookEdit',
             name: 'BookEdit',
-            // redirect: 'BookManage',
             component: () =>
               import(
                 /* webpackChunkName: "about" */ '../views/Manager/Book/BookEdit.vue'
@@ -75,7 +73,6 @@ const routes = [
           {
             path: '/manager/Index/ManagerManage',
             name: 'ManagerManage',
-            // redirect: 'BookManage',
             component: () =>
               import(
                 /* webpackChunkName: "about" */ '../views/Manager/Manager/ManagerManage.vue'
@@ -84,7 +81,6 @@ const routes = [
           {
             path: '/manager/Index/ManagerAdd',
             name: 'ManagerAdd',
-            // redirect: 'BookManage',
             component: () =>
               import(
                 /* webpackChunkName: "about" */ '../views/Manager/Manager/ManagerAdd.vue'
@@ -93,7 +89,6 @@ const routes = [
           {
             path: '/manager/Index/ManagerEdit',
             name: 'ManagerEdit',
-            // redirect: 'BookManage',
             component: () =>
               import(
                 /* webpackChunkName: "about" */ '../views/Manager/Manager/ManagerEdit.vue'
@@ -113,10 +108,25 @@ const routes = [
           {
             path: '/manager/Index/UserManage',
             name: 'UserManage',
-            // redirect: 'BookManage',
             component: () =>
               import(
                 /* webpackChunkName: "about" */ '../views/Manager/User/UserManage.vue'
+              )
+          },
+          {
+            path: '/manager/Index/UserAdd',
+            name: 'UserAdd',
+            component: () =>
+              import(
+                /* webpackChunkName: "about" */ '../views/Manager/User/UserAdd.vue'
+              )
+          },
+          {
+            path: '/manager/Index/UserEdit',
+            name: 'UserEdit',
+            component: () =>
+              import(
+                /* webpackChunkName: "about" */ '../views/Manager/User/UserEdit.vue'
               )
           }
         ]

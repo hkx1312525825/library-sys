@@ -101,6 +101,14 @@ const routes = [
               import(
                 /* webpackChunkName: "about" */ '../views/Manager/Manager/ManagerEdit.vue'
               )
+          },
+          {
+            path: '/manager/Index/CarouselManage',
+            name: 'CarouselManage',
+            component: () =>
+              import(
+                /* webpackChunkName: "about" */ '../views/Manager/Manager/CarouselManage.vue'
+              )
           }
         ]
       },

@@ -4,7 +4,7 @@
       <Sider hide-trigger :style="{ background: '#fff' }">
         <Menu active-name="ManagerManage" theme="light" width="auto">
           <MenuItem name="ManagerManage" to="ManagerManage"><Icon type="md-grid" />管理员管理</MenuItem>
-          <MenuItem name="CoursolManage" to="CoursolManage"><Icon type="md-grid" />首页轮播图管理</MenuItem>
+          <MenuItem name="CarouselManage" to="CarouselManage"><Icon type="md-grid" />首页轮播图管理</MenuItem>
         </Menu>
       </Sider>
       <Layout :style="{ padding: '0 24px 24px' }">

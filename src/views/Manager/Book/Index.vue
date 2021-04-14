@@ -4,8 +4,9 @@
       <Sider hide-trigger :style="{ background: '#fff' }">
         <Menu active-name="1" theme="light" width="auto">
           <MenuItem name="1" to="BookManage"><Icon type="md-grid" />书籍管理</MenuItem>
-          <MenuItem name="2" to="reanage"><Icon type="md-grid" />预定管理</MenuItem>
           <MenuItem name="3" to="TagManage"><Icon type="md-grid" />标签管理</MenuItem>
+          <MenuItem name="2" to="reanage"><Icon type="md-grid" />预定管理</MenuItem>
+          <MenuItem name="2" to="reanage"><Icon type="md-grid" />评论管理</MenuItem>
         </Menu>
       </Sider>
       <Layout :style="{ padding: '0 24px 24px' }">

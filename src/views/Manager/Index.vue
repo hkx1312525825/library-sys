@@ -3,7 +3,7 @@
     <Layout class="manager">
       <Header>
         <div class="layout-logo">
-          <img src="../../assets/匠-书房.svg" alt="" />
+          <img src="../../assets/亭.png" alt="" />
         </div>
         <div class="header-menu">
           <!-- <Menu mode="horizontal" theme="primary" active-name="Book">

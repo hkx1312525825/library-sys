@@ -9,11 +9,26 @@ const routes = [
   {
     path: '/',
     name: 'Index',
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/User/Index.vue'),
+    redirect: 'Home',
+    children: [
+      {
+        path: '/Home',
+        name: 'Home',
+        component: () =>
+          import(/* webpackChunkName: "about" */ '../views/User/Home.vue')
+      }
+    ]
+  },
+  {
+    path: '/Login',
+    name: 'Index',
     component: Index,
     redirect: 'Login',
     children: [
       {
-        path: '/login',
+        path: '/Login',
         name: 'Login',
         component: () =>
           import(/* webpackChunkName: "about" */ '../views/Login/Login.vue')

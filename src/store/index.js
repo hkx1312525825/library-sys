@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     token: localStorage.token || '',
-    currentManager: {}
+    currentManager: {},
+    currentUser: {}
   },
   mutations: {
     setToken: (state, data) => {
@@ -14,6 +15,9 @@ export default new Vuex.Store({
     },
     setManager: (state, data) => {
       state.currentManager = data
+    },
+    setUser: (state, data) => {
+      state.currentUser = data
     }
   },
   actions: {

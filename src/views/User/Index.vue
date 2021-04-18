@@ -7,12 +7,12 @@
           </div>
           <div class="header-nav">
             <div class="nav-menu">
-              <div><router-link to="Home">首页</router-link></div>
-              <div><router-link to="BookList">书籍总览</router-link></div>
+              <div><router-link :to="{name: 'Home'}">首页</router-link></div>
+              <div><router-link :to="{name: 'BookList'}">书籍总览</router-link></div>
               <div><router-link to="#">书籍预订</router-link></div>
               <div><router-link to="#">积分排行</router-link></div>
             </div>
-            <div v-if="userToekn" class="nav-info"><span>路人甲</span></div>
+            <div v-if="userToekn" class="nav-info"><span>{{userInfo.name}}</span></div>
             <div v-else class="nav-login" @click="toLogin"><span>登录</span><span>|</span><span>注册</span></div>
           </div>
         </Header>
@@ -34,11 +34,13 @@
 </template>
 
 <script>
+import axios from '@/libs/axios'
 import {
   Layout,
   Header,
   Content,
-  Footer
+  Footer,
+  Message
 } from 'view-design'
 export default {
   name: '',
@@ -59,6 +61,22 @@ export default {
   computed: {
     userToekn () {
       return this.$store.state.token
+    },
+    userInfo () {
+      return this.$store.state.currentUser
+    }
+  },
+  created () {
+    if (this.userToekn) {
+      axios.request({ url: 'CurrentUser' }).then(res => {
+        console.log(res)
+        if (res.forbidden) {
+          this.$store.commit('setToken', '')
+          Message.error('您的账户已被禁用，请联系管理员')
+        } else {
+          this.$store.commit('setUser', res)
+        }
+      })
     }
   }
 }

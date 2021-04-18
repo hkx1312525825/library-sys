@@ -10,7 +10,7 @@ module.exports = {
       entry: path.resolve(__dirname, './src/main.js'),
       template: path.resolve(__dirname, './public/index.html'),
       filename: 'index.html',
-      title: '文亭'
+      title: '百草书屋'
     }
   },
   pluginOptions: {

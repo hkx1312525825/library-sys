@@ -136,8 +136,9 @@ export default {
               method: 'post'
             })
             .then(res => {
-              debugger
+              // debugger
               this.$store.commit('setToken', res.token)
+              this.$router.push({ name: 'Home' })
             })
         } else {
           Message.error('请输入账号密码')

@@ -1,7 +1,7 @@
 <template>
   <div class="login-page">
     <div class="login-head">
-      <img @click="$router.push({name: 'Login'})" src="../../assets/匠-书房.png" alt="" />
+      <img @click="$router.push({name: 'Home'})" src="../../assets/匠-书房.png" alt="" />
     </div>
     <div>
       <keep-alive>

@@ -28,7 +28,7 @@
             </span>
             <ul>
               <li v-for="item in bookScoreData" :key="item.id">
-                <a class="book-name" target="_blank">{{ item.name }}</a>
+                <router-link class="book-name" :to="{ name: 'BookDetail', params: { id: item.id } }" target="_blank" tag="a">{{ item.name }}</router-link>
                 <span>
                   {{ item.score }}
                 </span>
@@ -47,6 +47,7 @@
             class="book-info"
             v-for="(item, index) in bookDefaultData"
             :key="index"
+            @click="$router.push({ name: 'BookDetail', params: { id: item.id } })"
           >
             <img
               style="height:120px;width: 100px"
@@ -67,6 +68,7 @@
             class="book-info"
             v-for="(item2, index2) in bookValueData"
             :key="index2"
+            @click="$router.push({ name: 'BookDetail', params: { id: item2.id } })"
           >
             <img
               style="height:120px;width: 100px"

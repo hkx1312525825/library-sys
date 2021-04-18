@@ -104,6 +104,7 @@ export default {
     },
     toDetail (id) {
       console.log(id)
+      this.$router.push({ name: 'BookDetail', params: { id: id } })
     }
   }
 }

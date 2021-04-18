@@ -3,7 +3,7 @@
     <Layout>
         <Header>
           <div class="header-logo">
-            <img src="../../assets/亭.png" alt="" />
+            <img @click="$router.push({name: 'Home'})" src="../../assets/亭.png" alt="" />
           </div>
           <div class="header-nav">
             <div class="nav-menu">
@@ -82,6 +82,7 @@ export default {
         .flex;
         > img {
           // margin: auto;
+          cursor: pointer;
           height: 50px;
         }
       }

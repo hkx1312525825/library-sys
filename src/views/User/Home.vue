@@ -21,14 +21,14 @@
           <Card dis-hover>
             <p slot="title">
               <Icon type="ios-book-outline" />
-              最热推荐
+              最热书籍
             </p>
             <span slot="extra">
               点击量
             </span>
             <ul>
               <li v-for="item in bookScoreData" :key="item.id">
-                <a target="_blank">{{ item.name }}</a>
+                <a class="book-name" target="_blank">{{ item.name }}</a>
                 <span>
                   {{ item.score }}
                 </span>
@@ -40,7 +40,7 @@
       <div class="new-book">
         <div class="message">
           <div class="name">新书上架</div>
-          <div class="more">更多》</div>
+          <div class="more" @click="$router.push({name: 'BookList'})">更多》</div>
         </div>
         <div class="book-info-list">
           <div
@@ -54,6 +54,26 @@
               :alt="item.img.name"
             />
             <span>{{ item.name }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="new-book">
+        <div class="message">
+          <div class="name">书籍推荐</div>
+          <div class="more" @click="$router.push({name: 'BookList'})">更多》</div>
+        </div>
+        <div class="book-info-list">
+          <div
+            class="book-info"
+            v-for="(item2, index2) in bookValueData"
+            :key="index2"
+          >
+            <img
+              style="height:120px;width: 100px"
+              :src="item2.img.url"
+              :alt="item2.img.name"
+            />
+            <span>{{ item2.name }}</span>
           </div>
         </div>
       </div>
@@ -78,7 +98,7 @@ export default {
       value: 1,
       bookScoreData: [],
       bookDefaultData: [],
-      firstDefaultBook: {}
+      bookValueData: []
     }
   },
   methods: {},
@@ -91,6 +111,9 @@ export default {
     })
     axios.request({ url: 'bookSort?ordering=-created_date' }).then(res => {
       this.bookDefaultData = res.results
+    })
+    axios.request({ url: 'bookSort?ordering=-value' }).then(res => {
+      this.bookValueData = res.results
     })
   }
 }
@@ -129,7 +152,7 @@ export default {
                 margin-bottom: 15px;
                 .flex-x-bt;
                 > a:hover {
-                  color: #ccc;
+                  color: @base-bg-color;
                 }
               }
             }
@@ -175,7 +198,13 @@ export default {
         margin-top: 25px;
         .flex-x-bt;
         .book-info {
+          &:hover {
+            color: @base-bg-color;
+          }
           cursor: pointer;
+          > img {
+            margin-bottom: 15px;
+          }
         }
       }
     }

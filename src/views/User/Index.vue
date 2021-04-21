@@ -9,7 +9,7 @@
             <div class="nav-menu">
               <div><router-link :to="{name: 'Home'}">首页</router-link></div>
               <div><router-link :to="{name: 'BookList'}">书籍总览</router-link></div>
-              <div><router-link to="#">书籍预订</router-link></div>
+              <div><router-link to="#">预订中心</router-link></div>
               <div><router-link to="#">积分排行</router-link></div>
             </div>
             <div v-if="userToekn" class="nav-info"><span>{{userInfo.name}}</span></div>

@@ -94,6 +94,14 @@ const routes = [
               import(
                 /* webpackChunkName: "about" */ '../views/Manager/Book/TagManage.vue'
               )
+          },
+          {
+            path: '/manager/Index/ReserveManage',
+            name: 'ReserveManage',
+            component: () =>
+              import(
+                /* webpackChunkName: "about" */ '../views/Manager/Book/ReserveManage.vue'
+              )
           }
         ]
       },

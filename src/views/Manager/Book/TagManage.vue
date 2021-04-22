@@ -2,8 +2,8 @@
   <div class="manager-page">
     <Breadcrumb :style="{ margin: '24px 0' }">
       <!-- <BreadcrumbItem>Home</BreadcrumbItem> -->
-      <BreadcrumbItem>管理员管理</BreadcrumbItem>
-      <BreadcrumbItem>管理员管理</BreadcrumbItem>
+      <BreadcrumbItem>书籍管理</BreadcrumbItem>
+      <BreadcrumbItem>标签管理</BreadcrumbItem>
     </Breadcrumb>
     <Content
       :style="{ padding: '24px', minHeight: '280px', background: '#fff' }"
@@ -34,7 +34,7 @@
                 <Button @click="resetData">重置</Button>
               </FormItem></Col
             >
-            <Col v-show="user.isSuper" span="24"
+            <Col span="24"
               ><FormItem>
                 <Button type="primary" @click="tagAddShow=true">新增</Button>
               </FormItem></Col

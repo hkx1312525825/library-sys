@@ -31,11 +31,14 @@
                 ></Input> </FormItem
             ></Col>
             <Col span="6"
-              ><FormItem label="书籍名称" prop="status">
+              ><FormItem label="预订状态" prop="status">
                 <Select v-model="reserveInfo.status">
                   <Option value="0" >未审核</Option>
                   <Option value="1" >已通过</Option>
-                  <Option value="2" >已驳回</Option>
+                  <Option value="2" >未通过</Option>
+                  <Option value="3" >租赁中</Option>
+                  <Option value="4" >已归还</Option>
+                  <Option value="5" >已逾期</Option>
                 </Select>
                 </FormItem
             ></Col>
@@ -306,7 +309,7 @@ export default {
         {
           title: '用户账号/联系方式',
           align: 'center',
-          width: '200',
+          minWidth: 200,
           render: (h, params) => {
             return <span>{params.row.user.phone}</span>
           }
@@ -349,8 +352,14 @@ export default {
               return <span style={notAudit}>未审核</span>
             } else if (params.row.status === 1) {
               return <span style={pass}>已通过</span>
-            } else {
+            } else if (params.row.status === 2) {
               return <span style={fail}>未通过</span>
+            } else if (params.row.status === 3) {
+              return <span style={pass}>租赁中</span>
+            } else if (params.row.status === 4) {
+              return <span style={pass}>已归还</span>
+            } else {
+              return <span style={fail}>已逾期</span>
             }
           }
         },
@@ -377,6 +386,14 @@ export default {
                   onClick={() => this.audit(params.row)}
                 >
                   审核
+                </Button>
+                <Button
+                  type="success"
+                  style={params.row.status === 3 ? style : hidden}
+                  size="small"
+                  onClick={() => this.returnBook(params.row)}
+                >
+                  归还
                 </Button>
                 <Button
                   type="primary"
@@ -441,6 +458,14 @@ export default {
       }).catch(err => {
         this.loading2 = false
         // Message.error('审核失败')
+        console.log(err)
+      })
+    },
+    returnBook (row) {
+      axios.request({ url: `reserveAudit/${row.id}`, data: { status: 4 }, method: 'put' }).then(res => {
+        Message.success('归还成功')
+        this.searchReserve()
+      }).catch(err => {
         console.log(err)
       })
     },

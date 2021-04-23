@@ -9,10 +9,13 @@
             <div class="nav-menu">
               <div><router-link :to="{name: 'Home'}">首页</router-link></div>
               <div><router-link :to="{name: 'BookList'}">书籍总览</router-link></div>
-              <div><router-link to="#">预订中心</router-link></div>
+              <div><router-link :to="{name: 'ReserveCenter'}">预订中心</router-link></div>
               <div><router-link to="#">积分排行</router-link></div>
             </div>
-            <div v-if="userToekn" class="nav-info"><span>{{userInfo.name}}</span></div>
+            <div v-if="userToekn" class="nav-info">
+              <span style="margin-right: 15px;">{{userInfo.name}}</span>
+              <span style="cursor: pointer" @click="logout">退出</span>
+            </div>
             <div v-else class="nav-login" @click="toLogin"><span>登录</span><span>|</span><span>注册</span></div>
           </div>
         </Header>
@@ -56,6 +59,10 @@ export default {
   methods: {
     toLogin () {
       this.$router.push({ name: 'Login' })
+    },
+    logout () {
+      this.$store.commit('setToken', '')
+      this.$store.commit('setUser', {})
     }
   },
   computed: {
@@ -65,6 +72,7 @@ export default {
     userInfo () {
       return this.$store.state.currentUser
     }
+
   },
   created () {
     if (this.userToekn) {

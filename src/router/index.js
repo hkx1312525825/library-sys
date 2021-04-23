@@ -31,6 +31,13 @@ const routes = [
         props: true,
         component: () =>
           import(/* webpackChunkName: "about" */ '../views/User/BookDetail.vue')
+      },
+      {
+        path: '/ReserveCenter',
+        name: 'ReserveCenter',
+        meta: { requiresAuth: true },
+        component: () =>
+          import(/* webpackChunkName: "about" */ '../views/User/ReserveCenter.vue')
       }
     ]
   },

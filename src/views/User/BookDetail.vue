@@ -154,7 +154,7 @@ export default {
           if (currentUser) {
             this.reserveForm.user_id = currentUser.id
             this.reserveForm.book_id = this.bookDetail.id
-            axios.request({ url: 'reserves', data: this.reserveForm, method: 'post' }).then(res => {
+            axios.request({ url: 'createReserve', data: this.reserveForm, method: 'post' }).then(res => {
               Message.success('预定成功，请等待管理员处理')
               this.reserveShow = false
             }).catch(error => {

@@ -117,6 +117,14 @@ const routes = [
               import(
                 /* webpackChunkName: "about" */ '../views/Manager/Book/ReserveManage.vue'
               )
+          },
+          {
+            path: '/manager/Index/CommentManage',
+            name: 'CommentManage',
+            component: () =>
+              import(
+                /* webpackChunkName: "about" */ '../views/Manager/Book/CommentManage.vue'
+              )
           }
         ]
       },

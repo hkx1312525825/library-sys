@@ -69,22 +69,6 @@
   align-items: center;
 }
 
-.flex-column {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.flex-align-center {
-  align-items: center;
-}
-.flex-align-start {
-  align-items: flex-start;
-}
-
-.flex-align-end {
-  align-items: flex-end;
-}
-
 .form-button {
   position: fixed;
   right: 70px;
@@ -111,6 +95,19 @@
   .flex-y;
   .flex-align-center;
   justify-content: center;
+}
+.flex-align-center {
+  .flex;
+  align-items: center;
+}
+.flex-align-start {
+  .flex;
+  align-items: flex-start;
+}
+
+.flex-align-end {
+  .flex;
+  align-items: flex-end;
 }
 .background {
   background-size: cover !important;

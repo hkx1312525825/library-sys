@@ -28,7 +28,7 @@
             </span>
             <ul>
               <li v-for="item in bookScoreData" :key="item.id">
-                <router-link class="book-name" :to="{ name: 'BookDetail', params: { id: item.id } }" target="_blank" tag="a">{{ item.name }}</router-link>
+                <router-link class="book-name" :to="{ name: 'BookDetail', params: { id: item.id } }">{{ item.name }}</router-link>
                 <span>
                   {{ item.score }}
                 </span>

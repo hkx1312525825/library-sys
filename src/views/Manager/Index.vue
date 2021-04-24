@@ -6,20 +6,6 @@
           <img src="../../assets/亭.png" alt="" />
         </div>
         <div class="header-menu">
-          <!-- <Menu mode="horizontal" theme="primary" active-name="Book">
-            <MenuItem name="Book" to="Book" :replace="true">
-              <Icon type="ios-navigate"></Icon>
-              书籍管理
-            </MenuItem>
-            <MenuItem name="User" to="User" :replace="true">
-              <Icon type="ios-keypad"></Icon>
-              用户管理
-            </MenuItem>
-            <MenuItem name="Manager" to="Manager" :replace="true">
-              <Icon type="ios-analytics"></Icon>
-              管理员管理
-            </MenuItem>
-          </Menu> -->
           <div class="header-menu-content">
             <div><router-link to="Book"><Icon type="md-book" />书籍管理</router-link></div>
             <div><router-link to="User"><Icon type="ios-contacts-outline" />用户管理</router-link></div>

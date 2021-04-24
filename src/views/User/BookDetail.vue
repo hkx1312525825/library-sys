@@ -146,13 +146,17 @@ export default {
       )
     }
   },
+  computed: {
+    currentUser () {
+      return this.$store.state.currentUser
+    }
+  },
   methods: {
     asyncOK () {
       this.$refs.reserveForm.validate((valid) => {
         if (valid) {
-          const currentUser = this.$store.state.currentUser
-          if (currentUser) {
-            this.reserveForm.user_id = currentUser.id
+          if (this.currentUser) {
+            this.reserveForm.user_id = this.currentUser.id
             this.reserveForm.book_id = this.bookDetail.id
             axios.request({ url: 'createReserve', data: this.reserveForm, method: 'post' }).then(res => {
               Message.success('预定成功，请等待管理员处理')

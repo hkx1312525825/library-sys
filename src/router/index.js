@@ -38,6 +38,14 @@ const routes = [
         meta: { requiresAuth: true },
         component: () =>
           import(/* webpackChunkName: "about" */ '../views/User/ReserveCenter.vue')
+      },
+      {
+        path: '/CommentEdit/:reserveId/:bookId',
+        name: 'CommentEdit',
+        meta: { requiresAuth: true },
+        props: true,
+        component: () =>
+          import(/* webpackChunkName: "about" */ '../views/User/CommentEdit.vue')
       }
     ]
   },

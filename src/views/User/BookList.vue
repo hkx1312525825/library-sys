@@ -8,7 +8,7 @@
         </Breadcrumb>
       </div>
       <div class="search">
-        <div class="title">书籍总览</div>
+        <div class="title"></div>
         <div class="search-input">
           <div>
             <Select style="width: 200px" :clearable="true" placeholder="请选择书籍分类" v-model="tag">

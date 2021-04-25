@@ -46,6 +46,19 @@ const routes = [
         props: true,
         component: () =>
           import(/* webpackChunkName: "about" */ '../views/User/CommentEdit.vue')
+      },
+      {
+        path: '/CommentCenter',
+        name: 'CommentCenter',
+        component: () =>
+          import(/* webpackChunkName: "about" */ '../views/User/CommentCenter.vue')
+      },
+      {
+        path: '/CommentDetail/:id',
+        name: 'CommentDetail',
+        props: true,
+        component: () =>
+          import(/* webpackChunkName: "about" */ '../views/User/CommentDetail.vue')
       }
     ]
   },

@@ -3,7 +3,7 @@
     <Layout>
         <Header>
           <div class="header-logo">
-            <img @click="$router.push({name: 'Home'})" src="../../assets/亭.png" alt="" />
+            <img @click="$router.push({name: 'Home'})" src="../../assets/Library.png" alt="" />
           </div>
           <div class="header-nav">
             <div class="nav-menu">
@@ -13,7 +13,7 @@
               <div><router-link :to="{name: 'CommentCenter'}">评论中心</router-link></div>
             </div>
             <div v-if="userToekn" class="nav-info">
-              <span style="margin-right: 15px;">{{userInfo.name}}</span>
+              <span style="margin-right: 15px;">{{userInfo.level}}：{{userInfo.name}}</span>
               <span style="cursor: pointer" @click="logout">退出</span>
             </div>
             <div v-else class="nav-login" @click="toLogin"><span>登录</span><span>|</span><span>注册</span></div>

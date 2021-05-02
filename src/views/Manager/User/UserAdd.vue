@@ -138,7 +138,8 @@ export default {
               method: 'post'
             })
             .then(res => {
-              this.$router.replace({ name: 'UserManager' })
+              this.$router.replace({ name: 'UserManage' })
+              Message.success('新增用户成功')
             })
             .catch(err => {
               console.log(err)

@@ -45,7 +45,7 @@
         </div>
       </div>
       <div style="margin-bottom: 50px" class="flex-x-center">
-        <Page :total="total" />
+        <Page :total="total" @on-change="changePage" />
       </div>
     </div>
     <BackTop></BackTop>
@@ -81,6 +81,7 @@ export default {
     }
   },
   created () {
+    debugger
     axios.request({ url: 'tagList' }).then(res => {
       this.tagList = res
     })
@@ -101,6 +102,9 @@ export default {
         this.total = res.count
         console.log(this.bookList)
       })
+    },
+    changePage (page) {
+      this.searchBook(page)
     },
     toDetail (id) {
       console.log(id)

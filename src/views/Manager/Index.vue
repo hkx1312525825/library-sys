@@ -3,7 +3,7 @@
     <Layout class="manager">
       <Header>
         <div class="layout-logo">
-          <img src="../../assets/亭.png" alt="" />
+          <img src="../../assets/Library.png" alt="" />
         </div>
         <div class="header-menu">
           <div class="header-menu-content">

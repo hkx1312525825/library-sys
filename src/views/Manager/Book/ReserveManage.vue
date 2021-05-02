@@ -389,6 +389,14 @@ export default {
                 </Button>
                 <Button
                   type="success"
+                  style={params.row.status === 1 ? style : hidden}
+                  size="small"
+                  onClick={() => this.receieve(params.row)}
+                >
+                  领取
+                </Button>
+                <Button
+                  type="success"
                   style={params.row.status === 3 ? style : hidden}
                   size="small"
                   onClick={() => this.returnBook(params.row)}
@@ -464,6 +472,14 @@ export default {
     returnBook (row) {
       axios.request({ url: `reserveAudit/${row.id}`, data: { status: 4 }, method: 'put' }).then(res => {
         Message.success('归还成功')
+        this.searchReserve()
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    receieve (row) {
+      axios.request({ url: `reserveAudit/${row.id}`, data: { status: 3 }, method: 'put' }).then(res => {
+        Message.success('领取书籍成功')
         this.searchReserve()
       }).catch(err => {
         console.log(err)

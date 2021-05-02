@@ -92,11 +92,11 @@
             placeholder="请输入作者名称"
           ></Input>
         </FormItem>
-        <FormItem label="简介">
+        <FormItem label="简介" prop="introduction">
           <!-- <Input v-model="bookForm.introduction" placeholder="请输入书籍名称"></Input> -->
-          <Editor content='' @getContent="getContent"></Editor>
+          <Editor :content="bookForm.introduction" @getContent="getContent"></Editor>
         </FormItem>
-        <FormItem label="标签">
+        <FormItem label="标签" prop="tags">
           <!-- <Input v-model="bookForm.tags" placeholder="请输入书籍名称"></Input> -->
           <Select
             style="width: 200px;"
@@ -111,7 +111,6 @@
         </FormItem>
         <FormItem label="书籍数量" prop="num">
           <Input
-            type="number"
             style="width: 120px"
             v-model="bookForm.num"
             placeholder="请输入书籍数量"
@@ -119,7 +118,6 @@
         </FormItem>
         <FormItem label="推荐值" prop="value">
           <Input
-            type="number"
             style="width: 120px"
             v-model="bookForm.value"
             placeholder="请输入推荐值"
@@ -195,7 +193,7 @@ export default {
       bookForm: {
         name: '',
         author: '',
-        num: 0,
+        num: '',
         introduction: '',
         value: '',
         img: '',
@@ -382,11 +380,17 @@ export default {
             Message.success('添加书籍成功')
             this.bookAddShow = false
             this.searchBook()
+            this.img = []
+            this.$refs.addBookForm.resetFields()
           }).catch(err => {
             Message.error('添加书籍失败')
             console.log(err)
-            this.bookAddShow = false
+            // this.bookAddShow = false
             this.searchBook()
+            this.loading = false
+            this.$nextTick(() => {
+              this.loading = true
+            })
           })
         } else {
           this.loading = false
@@ -398,6 +402,7 @@ export default {
     },
     cancelBook () {
       this.$refs.addBookForm.resetFields()
+      this.img = []
       this.bookAddShow = false
     },
     resetData () {

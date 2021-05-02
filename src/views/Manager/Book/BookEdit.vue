@@ -45,17 +45,15 @@
             }}</Option>
           </Select>
         </FormItem>
-        <FormItem label="书籍数量" prop="num">
+        <FormItem label="书籍数量">
           <Input
             style="width: 120px"
-            type="number"
             v-model="bookForm.num"
             placeholder="请输入书籍数量"
           ></Input>
         </FormItem>
-        <FormItem label="推荐值" prop="value">
+        <FormItem label="推荐值">
           <Input
-          type="number"
             style="width: 120px"
             v-model="bookForm.value"
             placeholder="请输入推荐值"

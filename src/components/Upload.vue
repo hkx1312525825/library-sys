@@ -41,7 +41,7 @@ export default {
     },
     maxSize: {
       type: [String, Number],
-      default: 3072
+      default: 10240
     },
     length: {
       type: [String, Number]

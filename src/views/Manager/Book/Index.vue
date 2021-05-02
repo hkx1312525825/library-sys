@@ -3,10 +3,10 @@
     <Layout>
       <Sider hide-trigger :style="{ background: '#fff' }">
         <Menu active-name="1" theme="light" width="auto">
-          <MenuItem name="1" to="BookManage"><Icon type="md-grid" />书籍管理</MenuItem>
-          <MenuItem name="3" to="TagManage"><Icon type="md-grid" />标签管理</MenuItem>
-          <MenuItem name="2" to="ReserveManage"><Icon type="md-grid" />预约管理</MenuItem>
-          <MenuItem name="2" to="CommentManage"><Icon type="md-grid" />评论管理</MenuItem>
+          <MenuItem name="1" :to="{name: 'BookManage'}"><Icon type="md-grid" />书籍管理</MenuItem>
+          <MenuItem name="2" :to="{name: 'TagManage'}"><Icon type="md-grid" />标签管理</MenuItem>
+          <MenuItem name="3" :to="{name: 'ReserveManage'}"><Icon type="md-grid" />预约管理</MenuItem>
+          <MenuItem name="4" :to="{name: 'CommentManage'}"><Icon type="md-grid" />评论管理</MenuItem>
         </Menu>
       </Sider>
       <Layout :style="{ padding: '0 24px 24px' }">
